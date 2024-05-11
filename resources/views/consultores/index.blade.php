@@ -1,17 +1,18 @@
+
 <div class="container">
-    <div id="void"></div>
-    <div class="row">
-        <div class="col">
-            <a href="/consultores/cadastrar" class="btn btn-primary float-end mt-2">
-                <i class="fa fa-plus me-1"></i>
-                Cadastrar
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="card mt-2 border-0">
-                <div class="card-body">
+    <div class="card mt-2 border-1 bg-body rounded shadow-sm">
+        <div class="card-body">
+            <div id="void"></div>
+            <div class="row">
+                <div class="col">
+                    <a href="/consultores/cadastrar" class="btn btn-primary float-end mt-2">
+                        <i class="fa fa-plus me-1"></i>
+                        Cadastrar
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
                     <div class="table-responsive mt-2">
                         <table class="table table-hover table-sm">
                             <thead class="table-light">
@@ -46,6 +47,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="modalExclusao" tabindex="-1" aria-labelledby="modalExclusaoLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

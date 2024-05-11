@@ -34,4 +34,30 @@ class FeedbackModel extends Model
 
         return DB::select($sql);
     }
+
+    /**
+     * @return array<array{
+     * id: int,
+     * descricao: string,
+     * estrategia: string,
+     * observacoes: string|null,
+     * nome: string,
+     * datahora: string,
+     * }>
+     */
+    public static function getRecentes(): array
+    {
+        $sql = 'SELECT feedback.id, 
+                       feedback.descricao,
+                       feedback.estrategia,
+                       feedback.observacoes,
+                       consultor.nome,
+                       feedback.datahora
+                FROM feedback
+                JOIN consultor ON feedback.id_consultor = consultor.id
+                ORDER by feedback.id DESC
+                LIMIT 3';
+
+        return DB::select($sql);
+    }
 }

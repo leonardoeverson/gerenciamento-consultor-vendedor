@@ -1,47 +1,51 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-primary float-end my-2" href="/advertencias/cadastrar">
-                <i class="fa fa-plus me-1"></i>
-                Cadastrar
-            </a>
-        </div>
-    </div>
-    <div id="void"></div>
-    <div class="row">
-        <div class="col">
-            <div class="table-responsive">
-                <table class="table table-sm table-hover mt-2">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Consultor</th>
-                            <th>Observações</th>
-                            <th>Tipo de Advertência</th>
-                            <th>Data/Hora</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($advertencias as $advertencia)
-                        <tr>
-                            <td>{{ $advertencia->id }}</td>
-                            <td>{{ $advertencia->consultor }}</td>
-                            <td>{{ $advertencia->observacoes }}</td>
-                            <td>{{ $advertencia->tipo_advertencia }}</td>
-                            <td>{{ date('d/m/Y H:i:s', strtotime($advertencia->datahora)) }}</td>
-                            <td>
-                                <button data-id="{{ $advertencia->id }}" type="button" class="btn btn-danger btn-sm" onclick="handleModalDeleteAdvOpen(this)">
-                                    Excluir
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+    <div class="card mt-2 bg-body rounded shadow-sm">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-primary float-end my-2" href="/advertencias/cadastrar">
+                        <i class="fa fa-plus me-1"></i>
+                        Cadastrar
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mt-2">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Consultor</th>
+                                    <th>Observações</th>
+                                    <th>Tipo de Advertência</th>
+                                    <th>Data/Hora</th>
+                                    <th>Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($advertencias as $advertencia)
+                                    <tr>
+                                        <td>{{ $advertencia->id }}</td>
+                                        <td>{{ $advertencia->consultor }}</td>
+                                        <td>{{ $advertencia->observacoes }}</td>
+                                        <td>{{ $advertencia->tipo_advertencia }}</td>
+                                        <td>{{ date('d/m/Y H:i:s', strtotime($advertencia->datahora)) }}</td>
+                                        <td>
+                                            <button data-id="{{ $advertencia->id }}" type="button" class="btn btn-danger btn-sm" onclick="handleModalDeleteAdvOpen(this)">
+                                                Excluir
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <div id="void"></div>
 </div>
 <div class="modal fade" id="modalExcluirAdvertencia" tabindex="-1" aria-labelledby="modalExcluirAdvertenciaLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body>
+<body style="background-color: #f8f9fa">
 <header>
     <div class="px-3 py-2 text-bg-dark border-bottom">
         <div class="container">
@@ -35,7 +35,7 @@
                             <div class="d-block mx-auto mb-1 text-center">
                                 <i class="bi bi-chat me-1"></i>
                             </div>
-                            Dashboard
+                            Feedbacks
                         </a>
                     </li>
                     <li>
@@ -53,6 +53,17 @@
                             </div>
                             Advertências
                         </a>
+                    </li>
+                    <li>
+                        <form action="/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="nav-link text-white">
+                                <div class="d-block mx-auto mb-1 text-center">
+                                    <i class="bi bi-box-arrow-right me-1"></i>
+                                </div>
+                                Sair
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>

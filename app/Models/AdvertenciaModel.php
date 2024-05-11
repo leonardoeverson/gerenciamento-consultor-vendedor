@@ -31,4 +31,29 @@ class AdvertenciaModel extends Model
                     join advertencia_tipo on advertencia.id_tipoadvertencia = advertencia_tipo.id';
         return DB::select($sql);
     }
+
+    /**
+     * @return array<array{
+     * id: int,
+     * consultor: string,
+     * observacoes: string,
+     * tipo_advertencia: string,
+     * datahora: string,
+     * }>
+     */
+    public static function getRecentes(): array
+    {
+        $sql = 'select
+                    advertencia.id,
+                    nome consultor,
+                    observacoes,
+                    descricao tipo_advertencia,
+                    advertencia.datahora
+                from advertencia
+                    join consultor on consultor.id = advertencia.id_consultor
+                    join advertencia_tipo on advertencia.id_tipoadvertencia = advertencia_tipo.id
+                order by advertencia.id desc
+                limit 3';
+        return DB::select($sql);
+    }
 }

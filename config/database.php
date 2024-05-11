@@ -32,7 +32,7 @@ return [
     'connections' => [
 
         'sqlite' => [
-            'driver' => 'sqlite',
+            'driver' => 'mariadb',
             'url' => env('DB_URL'),
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
