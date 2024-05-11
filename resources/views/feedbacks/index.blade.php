@@ -1,6 +1,6 @@
 <div class="row g-2">
     <div class="col-12">
-        <a href="/feedbacks/cadastrar" type="button" class="btn btn-primary float-end">
+        <a href="/feedbacks/cadastrar" type="button" class="btn btn-primary float-end mt-2">
             <i class="fa fa-plus me-1"></i>
             Novo Feedback
         </a>

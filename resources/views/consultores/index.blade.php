@@ -2,7 +2,7 @@
     <div id="void"></div>
     <div class="row">
         <div class="col">
-            <a href="/consultores/cadastrar" class="btn btn-primary float-end">
+            <a href="/consultores/cadastrar" class="btn btn-primary float-end mt-2">
                 <i class="fa fa-plus me-1"></i>
                 Cadastrar
             </a>
@@ -27,7 +27,7 @@
                                     <td>{{ $consultor->id }}</td>
                                     <td>{{ $consultor->nome }}</td>
                                     <td>
-                                        <a href="/consultor/editar/{{ $consultor->id }}" class="btn btn-sm btn-warning">
+                                        <a hx-get="/consultor/editar/{{ $consultor->id }}" hx-target="#container" class="btn btn-sm btn-warning">
                                             <i class="fa fa-pencil me-1"></i>
                                             Editar
                                         </a>

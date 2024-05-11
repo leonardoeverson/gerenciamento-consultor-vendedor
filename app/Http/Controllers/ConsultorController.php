@@ -11,7 +11,7 @@ class ConsultorController extends Controller
     public function index()
     {
         return view('template', [
-            'view' => View::make('consultores', [
+            'view' => View::make('consultores.index', [
                 'consultores' => DB::table('consultor')->get()->toArray()
             ])
         ]);
@@ -20,6 +20,12 @@ class ConsultorController extends Controller
     public function cadastrar()
     {
         return view('template', ['view' => View::make('consultores.cadastrar')]);
+    }
+
+    public function editar(int $id)
+    {
+        $consultor = DB::table('consultor')->where(['id' => $id])->get()->first();
+        return view('consultores.editar', ['id' => $id, 'consultor' => $consultor]);
     }
 
     public function insert(Request $request): ?\Illuminate\Contracts\View\View

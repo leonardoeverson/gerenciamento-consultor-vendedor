@@ -1,4 +1,4 @@
-<form hx-post="/consultores/insert" tx-target="#container" autocomplete="off">
+<form hx-post="/consultores/insert" hx-target="#container" autocomplete="off">
     <div class="container" id="cadastro-consultor">
         <div class="row">
             @if(!empty($mensagem))

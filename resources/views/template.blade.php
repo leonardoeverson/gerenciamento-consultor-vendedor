@@ -11,42 +11,55 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome/css/all.min.css') }}">
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-<header class="p-3 mb-3 border-bottom">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 link-body-emphasis">Home</a></li>
-                <li><a href="/feedbacks" class="nav-link px-2 link-body-emphasis">Feedbacks</a></li>
-                <li><a href="/consultores" class="nav-link px-2 link-body-emphasis">Consultores</a></li>
-            </ul>
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-            </form>
-            <div class="dropdown text-end">
-                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    Menu
+<header>
+    <div class="px-3 py-2 text-bg-dark border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="home"><use xlink:href="/home"></use></svg>
                 </a>
-                <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
-                        <hr class="dropdown-divider">
+                        <a href="/" class="nav-link text-white">
+                            <div class="d-block mx-auto mb-1 text-center">
+                                <i class="bi bi-house me-1"></i>
+                            </div>
+                            Home
+                        </a>
                     </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li>
+                        <a href="/feedbacks" class="nav-link text-white">
+                            <div class="d-block mx-auto mb-1 text-center">
+                                <i class="bi bi-chat me-1"></i>
+                            </div>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/consultores" class="nav-link text-white">
+                            <div class="d-block mx-auto mb-1 text-center">
+                                <i class="bi bi-people me-1"></i>
+                            </div>
+                            Consultores
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/advertencias" class="nav-link text-white">
+                            <div class="d-block mx-auto mb-1 text-center">
+                                <i class="bi bi-exclamation-triangle me-1"></i>
+                            </div>
+                            Advertências
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </header>
+
 <div class="container-fluid" id="container">
     <main>
         <?= $view ?>

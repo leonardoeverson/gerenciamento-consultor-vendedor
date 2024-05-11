@@ -12,7 +12,7 @@ class FeedbackController extends Controller
     public function get()
     {
         return view('template', [
-            'view' => View::make('feedbacks', [
+            'view' => View::make('feedbacks.index', [
                 'feedbacks' => FeedbackModel::getFeedbacks(),
             ])
         ]);
@@ -47,23 +47,10 @@ class FeedbackController extends Controller
                 'observacoes' => $observacoes
             ]);
 
-            return view('feedbacks.cadastrar', [
-                'consultores' => DB::table('consultor')->get()->toArray(),
-                'mensagem' => 'Feedback cadastrado com sucesso!',
-                'type' => 'success'
-            ]);
+            return $this->getCadastrarTemplate('Feedback cadastrado com sucesso!', 'success');
         } catch (\Exception $e) {
-            return view('feedbacks.cadastrar', [
-                'consultores' => DB::table('consultor')->get()->toArray(),
-                'mensagem' => $e->getMessage(),
-                'type' => 'danger'
-            ]);
+            return $this->getCadastrarTemplate($e->getMessage(), 'danger');
         }
-    }
-
-    public function update()
-    {
-
     }
 
     public function delete(Request $request)
@@ -75,17 +62,37 @@ class FeedbackController extends Controller
 
         try {
             DB::table('feedback')->where(['id' => $id])->delete();
-            return view('feedbacks', [
-                'feedbacks' => FeedbackModel::getFeedbacks(),
-                'message' => 'Feedback excluído com sucesso',
-                'type' => 'success'
-            ]);
+            $feedbacks = DB::table('feedback')->get()->toArray();
+            return $this->getDeleteTemplate('feedbacks.index', 'Feedback excluído com sucesso', 'success', null, $feedbacks);
         } catch (\Throwable $e) {
-            return view('feedbacks.confirmar_exclusao', [
-                'id' => $id,
-                'message' => $e->getMessage(),
-                'type' => 'danger'
-            ]);
+            return $this->getDeleteTemplate('feedbacks.confirmar_exclusao', $e->getMessage(), 'danger', $id);
         }
+    }
+
+    private function getDeleteTemplate(string $view, string $message, string $type, int $id = null, array $feedbacks = [])
+    {
+        $data = [
+            'message' => $message,
+            'type' => $type
+        ];
+
+        if ($id) {
+            $data['id'] = $id;
+        }
+
+        if (!empty($feedbacks)) {
+            $data['feedbacks'] = $feedbacks;
+        }
+
+        return view($view, $data);
+    }
+
+    private function getCadastrarTemplate(string $message, string $type)
+    {
+        return view('feedbacks.cadastrar', [
+            'consultores' => DB::table('consultor')->get()->toArray(),
+            'mensagem' => $message,
+            'type' => $type
+        ]);
     }
 }
