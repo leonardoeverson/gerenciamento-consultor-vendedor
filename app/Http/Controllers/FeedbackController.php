@@ -14,6 +14,7 @@ class FeedbackController extends Controller
         return view('template', [
             'view' => View::make('feedbacks.index', [
                 'feedbacks' => FeedbackModel::getFeedbacks(),
+                'consultores' => DB::table('consultor')->get()->toArray(),
             ])
         ]);
     }
@@ -27,9 +28,42 @@ class FeedbackController extends Controller
         ]);
     }
 
+    public function editar(Request $request)
+    {
+        try {
+            $id = $request->post('id');
+            if (!$id) {
+                return response()->json(['message' => 'Requisição inválida'], 400);
+            }
+
+            $feedback = FeedbackModel::getById($id)[0] ?? null;
+
+            if (empty($feedback)) {
+                return response()->json(['message' => 'Requisição inválida'], 400);
+            }
+            return view('feedbacks.cadastrar', [
+                'consultores' => DB::table('consultor')->get()->toArray(),
+                'feedback' => $feedback,
+                'mode' => 'update',
+                'id' => $id,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
+
     public function excluir(int $id)
     {
         return view('feedbacks.confirmar_exclusao', ['id' => $id]);
+    }
+
+    public function pesquisar(Request $request)
+    {
+        $consultor = $request->get('id_consultor');
+        $inicio = $request->get('periodoinicial');
+        $fim = $request->get('periodofinal');
+
+        return view('feedbacks.list', ['feedbacks' => FeedbackModel::getFeedbacks($inicio, $fim, $consultor)]);
     }
 
     public function insert(Request $request)
@@ -48,6 +82,28 @@ class FeedbackController extends Controller
             ]);
 
             return $this->getCadastrarTemplate('Feedback cadastrado com sucesso!', 'success');
+        } catch (\Exception $e) {
+            return $this->getCadastrarTemplate($e->getMessage(), 'danger');
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $id = $request->post('id');
+        $consultor = $request->post('id_consultor');
+        $descricao = $request->post('descricao');
+        $estrategia = $request->post('estrategia');
+        $observacoes = $request->post('observacoes');
+
+        try {
+            DB::table('feedback')->where(['id' => $id])->update([
+                'id_consultor' => $consultor,
+                'descricao' => $descricao,
+                'estrategia' => $estrategia,
+                'observacoes' => $observacoes
+            ]);
+
+            return $this->getCadastrarTemplate('Feedback atualizado com sucesso!', 'success');
         } catch (\Exception $e) {
             return $this->getCadastrarTemplate($e->getMessage(), 'danger');
         }

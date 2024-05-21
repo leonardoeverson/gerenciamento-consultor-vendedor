@@ -26,9 +26,12 @@ Route::middleware('auth')->group(function () {
     Route::prefix('feedbacks')->group(function () {
         Route::get('/', [FeedbackController::class, 'get']);
         Route::get('/cadastrar', [FeedbackController::class, 'cadastrar']);
+        Route::post('/editar', [FeedbackController::class, 'editar']);
         Route::post('/insert', [FeedbackController::class, 'insert']);
+        Route::post('/update', [FeedbackController::class, 'update']);
         Route::post('/delete', [FeedbackController::class, 'delete']);
         Route::get('/excluir/{id}', [FeedbackController::class, 'excluir']);
+        Route::get('/pesquisar', [FeedbackController::class, 'pesquisar']);
     });
 
     Route::prefix('consultores')->group(function () {
