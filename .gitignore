@@ -24,3 +24,4 @@ frankenphp-worker.php
 composer.lock
 package-lock.jsonrr
 .rr.yaml
+rr
