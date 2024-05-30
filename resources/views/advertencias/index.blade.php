@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="card mt-2 bg-body rounded shadow-sm">
         <div class="card-body">
             <div class="row">
@@ -27,13 +27,24 @@
                                     <tr>
                                         <td>{{ $advertencia->id }}</td>
                                         <td>{{ $advertencia->consultor }}</td>
-                                        <td>{{ $advertencia->observacoes }}</td>
+                                        <td style="white-space: pre-line">{{ $advertencia->observacoes }}</td>
                                         <td>{{ $advertencia->tipo_advertencia }}</td>
                                         <td>{{ date('d/m/Y H:i:s', strtotime($advertencia->datahora)) }}</td>
                                         <td>
-                                            <button data-id="{{ $advertencia->id }}" type="button" class="btn btn-danger btn-sm" onclick="handleModalDeleteAdvOpen(this)">
-                                                Excluir
-                                            </button>
+                                            <div class="btn-toolbar">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary btn-sm me-1" hx-get="/advertencias/editar/{{ $advertencia->id }}" hx-target="#container">
+                                                        <i class="fa fa-pencil me-1"></i>
+                                                        Editar
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group me-1">
+                                                    <button data-id="{{ $advertencia->id }}" type="button" class="btn btn-danger btn-sm" onclick="handleModalDeleteAdvOpen(this)">
+                                                        <i class="fa fa-trash me-1"></i>
+                                                        Excluir
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

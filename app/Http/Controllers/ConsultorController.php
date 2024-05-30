@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConsultorModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -24,7 +25,7 @@ class ConsultorController extends Controller
 
     public function editar(int $id)
     {
-        $consultor = DB::table('consultor')->where(['id' => $id])->get()->first();
+        $consultor = ConsultorModel::get($id);
         return view('consultores.editar', ['id' => $id, 'consultor' => $consultor]);
     }
 
@@ -32,14 +33,48 @@ class ConsultorController extends Controller
     {
         try {
             $nome = $request->input('nome');
+            $email = $request->input('email');
+            $dados = ['nome' => $nome, 'email' => $email];
+
             if (!$nome || strlen($nome) < 10) {
                 return view('consultores.cadastrar', ['mensagem' => 'Insira um nome válido', 'type' => 'warning']);
             }
 
-            DB::table('consultor')->insert(['nome' => $nome]);
+            if ($request->has('foto')) {
+                $dados['foto'] = $request->file('foto')?->store('profiles', $nome);
+            }
+
+            DB::table('consultor')->insert($dados);
             return view('consultores.cadastrar', ['mensagem' => 'Consultor cadastrado com sucesso', 'type' => 'success']);
         } catch (\Throwable $e) {
             return view('consultores.cadastrar', ['mensagem' => $e->getMessage(), 'type' => 'danger']);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $id = $request->input('id');
+        $view = ['id' => $id,];
+
+        try {
+            $nome = $request->input('nome');
+            $email = $request->input('email');
+
+            if (!$nome || strlen($nome) < 10) {
+                return view('consultores.editar', [...$view, 'mensagem' => 'Insira um nome válido', 'type' => 'warning']);
+            }
+
+            $data = ['nome' => $nome, 'email' => $email];
+            if ($request->has('foto')) {
+                $foto = $request->file('foto');
+                $data['foto'] = $foto->store('profiles');
+            }
+
+            ConsultorModel::updateItem($id, $data);
+            $view['consultor'] = ConsultorModel::get($id);
+            return view('consultores.editar', [...$view, 'mensagem' => 'Consultor atualizado com sucesso', 'type' => 'success']);
+        } catch (\Throwable $e) {
+            return view('consultores.editar', [...$view, 'mensagem' => $e->getMessage(), 'type' => 'danger']);
         }
     }
 

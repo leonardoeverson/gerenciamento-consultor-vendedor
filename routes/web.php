@@ -21,8 +21,6 @@ Route::get('/', static function () {
 })->middleware(['auth', 'verified'])->name('/');
 
 Route::middleware('auth')->group(function () {
-
-
     Route::prefix('feedbacks')->group(function () {
         Route::get('/', [FeedbackController::class, 'get']);
         Route::get('/cadastrar', [FeedbackController::class, 'cadastrar']);
@@ -44,9 +42,11 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('advertencias')->group(function () {
         Route::get('/', [AdvertenciaController::class, 'index']);
-        Route::get('/cadastrar', [AdvertenciaController::class, 'cadastrar']);
-        Route::post('/insert', [AdvertenciaController::class, 'insert']);
-        Route::post('/delete', [AdvertenciaController::class, 'delete']);
+        Route::get('cadastrar', [AdvertenciaController::class, 'cadastrar']);
+        Route::get('editar/{id}', [AdvertenciaController::class, 'editar']);
+        Route::post('insert', [AdvertenciaController::class, 'insert']);
+        Route::post('delete', [AdvertenciaController::class, 'delete']);
+        Route::post('update', [AdvertenciaController::class, 'update']);
     });
 
     Route::get('/consultor/editar/{id}', [ConsultorController::class, 'editar']);

@@ -22,4 +22,5 @@ yarn-error.log
 frankenphp
 frankenphp-worker.php
 composer.lock
-package-lock.json
+package-lock.jsonrr
+.rr.yaml

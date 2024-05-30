@@ -1,6 +1,8 @@
-
-<div class="container">
-    <div class="card mt-2 border-1 bg-body rounded shadow-sm">
+<div class="container-fluid">
+    <div class="card mt-2 border-1 rounded shadow-sm">
+        <div class="card-header h5">
+            Consultores
+        </div>
         <div class="card-body">
             <div id="void"></div>
             <div class="row">
@@ -14,21 +16,33 @@
             <div class="row">
                 <div class="col">
                     <div class="table-responsive mt-2">
-                        <table class="table table-hover table-sm">
-                            <thead class="table-light">
+                        <table class="table">
+                            <thead class="table-dark">
                             <tr>
                                 <th>#</th>
+                                <th>Foto</th>
                                 <th>Nome</th>
-                                <td>Ações</td>
+                                <th>Email</th>
+                                <th>Ações</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($consultores as $consultor)
                                 <tr>
                                     <td>{{ $consultor->id }}</td>
-                                    <td>{{ $consultor->nome }}</td>
                                     <td>
-                                        <a hx-get="/consultor/editar/{{ $consultor->id }}" hx-target="#container" class="btn btn-sm btn-warning">
+                                        @if ($consultor->foto)
+                                            @php
+                                                $type = pathinfo(app()->storagePath('app/') . $consultor->foto, PATHINFO_EXTENSION);
+                                                $content = base64_encode(file_get_contents(app()->storagePath('app/') . $consultor->foto));
+                                            @endphp
+                                            <img src="data:image/{{ $type }};base64,{{ $content }}" alt="" style="max-width: 300px; max-height: 400px">
+                                        @endif
+                                    </td>
+                                    <td>{{ $consultor->nome }}</td>
+                                    <td>{{ $consultor->email }}</td>
+                                    <td>
+                                        <a hx-get="/consultor/editar/{{ $consultor->id }}" hx-target="#container" class="btn btn-sm btn-primary">
                                             <i class="fa fa-pencil me-1"></i>
                                             Editar
                                         </a>
