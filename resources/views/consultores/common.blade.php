@@ -6,8 +6,8 @@
 @php
     $encoded = null;
     $type = null;
-    $path = app()->storagePath('app/') . $consultor->foto;
-    if ($consultor && $consultor->foto && is_file($path)) {
+    if (!empty($consultor) && $consultor->foto) {
+        $path = app()->storagePath('app/') . $consultor->foto;
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $encoded = base64_encode(file_get_contents($path));
     }
@@ -20,7 +20,7 @@
     </div>
 @endif
 <div class="my-2">
-    @if ($consultor && $consultor->foto)
+    @if (!empty($consultor) && $consultor->foto)
         <img class="img-fluid" style="max-height: 400px; max-width: 300px" id="preview"
              alt="foto de perfil" src="data:image/{{ $type }};base64,{{ $encoded }}">
     @else
